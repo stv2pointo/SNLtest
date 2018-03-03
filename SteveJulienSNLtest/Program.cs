@@ -12,11 +12,8 @@ namespace SteveJulienSNLtest
     {
         static void Main(string[] args)
         {
-            string[] lines = readFromFile();
-            foreach (string line in lines)
-            {
-                Console.WriteLine(line);
-            }
+            writeToFile(readFromFile());
+       
             Console.ReadLine();
         }
 
@@ -31,7 +28,7 @@ namespace SteveJulienSNLtest
             {
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(path);
-                while ((line = file.ReadLine()) != null && counter < 10)
+                while ((line = file.ReadLine()) != null && counter < 5)
                 {
                     fileLines.Add(line);
                     counter++;
@@ -46,5 +43,11 @@ namespace SteveJulienSNLtest
 
             return fileLines.ToArray();
         }
+
+        public static void writeToFile(string[] lines)
+        {
+            System.IO.File.WriteAllLines(@"C:\SecurityNational\WriteLines.txt", lines);
+        }
+
     }
 }
