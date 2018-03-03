@@ -14,7 +14,25 @@ namespace SteveJulienSNLtest.Models
 
         public override double getPeriodGrossPay()
         {
-            return salary * currentHours;
+            double grossPay = 0.0;
+            if(currentHours >= 0)
+            {
+                double basePay = salary * currentHours;
+                
+                if(currentHours > 90)
+                {
+                    grossPay *= 1.75;
+                }
+                else if(currentHours > 80)
+                {
+                   grossPay *= 1.5;
+                }
+                else
+                {
+                    grossPay = basePay;
+                }
+            }
+            return grossPay;
         }
     }
 }

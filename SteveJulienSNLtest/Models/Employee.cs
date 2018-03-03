@@ -18,6 +18,7 @@ namespace SteveJulienSNLtest.Models
         public ResidenceState residenceState { get; set; }
         public double currentHours { get; set; }
 
+        // TODO: Handle number Exceptions during construction
         public Employee(string[] values)
         {
             this.Id = values[0];

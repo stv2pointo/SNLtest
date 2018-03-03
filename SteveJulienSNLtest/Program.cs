@@ -15,10 +15,14 @@ namespace SteveJulienSNLtest
         {
             string[] rawLines = readFromFile();
             Dictionary<string, Employee> dictionary = getEmployeeDict(rawLines);
-            Employee firstEmployee = dictionary["1"];
-            string firstEmployeeName = firstEmployee.firstName + " " + firstEmployee.lastName;
-            double rate = firstEmployee.getPeriodGrossPay();
-            Console.WriteLine(firstEmployeeName + " : $" + Convert.ToDouble(rate));
+            for(int i=1;i<10;i++)
+            {
+                Employee emp = dictionary[i.ToString()];
+                string firstEmployeeName = emp.firstName + " " + emp.lastName;
+                double rate = emp.getPeriodGrossPay();
+                Console.WriteLine(firstEmployeeName + " : $" + Convert.ToDouble(rate));
+            }
+            
             //writeToFile(readFromFile());
        
             Console.ReadLine();
@@ -79,11 +83,12 @@ namespace SteveJulienSNLtest
                 {
                     emp = new SalaryEmployee(fields);
                 }
-                //else
-                //{
-                //    throw new UnknownPayTypeException("Unknown pay type: " + payType);
-                //}
-                if(emp != null)
+                else
+                {
+                    Console.WriteLine("ERROR: Unknown PayType for Employee Id: " + fields[0] + " Name: " +
+                        fields[2] + ", " + fields[1]);
+                }
+                if (emp != null)
                 {
                     employeeDict.Add(fields[0], emp);
                 }
