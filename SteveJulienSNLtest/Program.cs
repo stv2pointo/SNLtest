@@ -14,6 +14,7 @@ namespace SteveJulienSNLtest
         static void Main(string[] args)
         {
             string[] rawLines = readFromFile();
+        
             Dictionary<string, Employee> dictionary = getEmployeeDict(rawLines);
             createPayChecks(dictionary);
             //for(int i=5;i<8;i++)
@@ -44,7 +45,7 @@ namespace SteveJulienSNLtest
             {
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(path);
-                while ((line = file.ReadLine()) != null && counter < 10)
+                while ((line = file.ReadLine()) != null && counter < 5)
                 {
                     fileLines.Add(line);
                     counter++;
@@ -104,13 +105,18 @@ namespace SteveJulienSNLtest
 
         public static void createPayChecks(Dictionary<string, Employee> dictionary)
         {
+            string path = PayrollConstants.DEFAULT_PAYCHECKS_WRITE_PATH;
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
             string[] payChecks = new string[dictionary.Count];
             try
             {
                 foreach (KeyValuePair<string, Employee> kvp in dictionary)
                 {
 
-                    System.IO.File.AppendAllText(@"C:\SecurityNational\Paychecks.txt", 
+                    System.IO.File.AppendAllText(path, 
                         string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
                             kvp.Key,
                             kvp.Value.firstName,

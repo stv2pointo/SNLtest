@@ -46,7 +46,6 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\HourlyEmployee.cs" />
     <Compile Include="Models\NoKnownResidenceStateException.cs" />
-    <Compile Include="Models\Paycheck.cs" />
     <Compile Include="Models\PayrollConstants.cs" />
     <Compile Include="Models\ResidenceState.cs" />
     <Compile Include="Models\SalaryEmployee.cs" />
