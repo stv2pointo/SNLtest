@@ -39,10 +39,10 @@ namespace SteveJulienSNLtest.Models
             {
                 taxRate = .07;
             }
-            else
-            {
-                throw new NoKnownResidenceStateException("Unknown state: " + name);
-            }
+            //else
+            //{
+            //    throw new NoKnownResidenceStateException("Unknown state: " + name);
+            //}
         }
 
         public string getName()

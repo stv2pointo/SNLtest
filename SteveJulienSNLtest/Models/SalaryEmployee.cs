@@ -8,6 +8,10 @@ namespace SteveJulienSNLtest.Models
 {
     public class SalaryEmployee : Employee
     {
+        public SalaryEmployee(string[] values) : base(values)
+        {
+        }
+
         public override double getPeriodGrossPay()
         {
             return salary / (PayPeriod.WEEKS_PER_YEAR / PayPeriod.WEEKS_PER_PAY_PERIOD);

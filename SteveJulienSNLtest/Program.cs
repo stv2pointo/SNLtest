@@ -13,8 +13,13 @@ namespace SteveJulienSNLtest
     {
         static void Main(string[] args)
         {
-
-            writeToFile(readFromFile());
+            string[] rawLines = readFromFile();
+            Dictionary<string, Employee> dictionary = getEmployeeDict(rawLines);
+            Employee firstEmployee = dictionary["1"];
+            string firstEmployeeName = firstEmployee.firstName + " " + firstEmployee.lastName;
+            double rate = firstEmployee.getPeriodGrossPay();
+            Console.WriteLine(firstEmployeeName + " : $" + Convert.ToDouble(rate));
+            //writeToFile(readFromFile());
        
             Console.ReadLine();
         }
@@ -32,9 +37,7 @@ namespace SteveJulienSNLtest
                     new System.IO.StreamReader(path);
                 while ((line = file.ReadLine()) != null && counter < 10)
                 {
-                    string[] payIndicators = line.Split(',');
-                    fileLines.Add(payIndicators[3]);
-                    //fileLines.Add(line);
+                    fileLines.Add(line);
                     counter++;
                 }
 
@@ -60,13 +63,34 @@ namespace SteveJulienSNLtest
             }
         }
 
-        //public void loadEmployeeDict(string[] lines)
-        //{
-        //    Dictionary<string, Employee> employeeDict = new Dictionary<string, Employee>();
-        //    Employee employee = new Employee();
-
-        //    employeeDict.Add("abc", new Employee)
-        //}
+        public static Dictionary<string, Employee> getEmployeeDict(string[] lines)
+        {
+            Dictionary<string, Employee> employeeDict = new Dictionary<string, Employee>();
+            foreach(string line in lines)
+            {
+                string[] fields = line.Split(',');
+                string payType = fields[3];
+                Employee emp = null;
+                if (payType.ToUpper().Equals("H"))
+                {
+                    emp = new HourlyEmployee(fields);
+                }
+                else if (payType.ToUpper().Equals("S"))
+                {
+                    emp = new SalaryEmployee(fields);
+                }
+                //else
+                //{
+                //    throw new UnknownPayTypeException("Unknown pay type: " + payType);
+                //}
+                if(emp != null)
+                {
+                    employeeDict.Add(fields[0], emp);
+                }
+            }
+            return employeeDict;
+            
+        }
 
     }
 }

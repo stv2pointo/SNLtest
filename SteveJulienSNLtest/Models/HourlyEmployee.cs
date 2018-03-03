@@ -8,6 +8,10 @@ namespace SteveJulienSNLtest.Models
 {
     public class HourlyEmployee : Employee
     {
+        public HourlyEmployee(string[] values) : base(values)
+        {
+        }
+
         public override double getPeriodGrossPay()
         {
             return salary * currentHours;

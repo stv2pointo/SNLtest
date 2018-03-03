@@ -18,6 +18,17 @@ namespace SteveJulienSNLtest.Models
         public ResidenceState residenceState { get; set; }
         public double currentHours { get; set; }
 
+        public Employee(string[] values)
+        {
+            this.Id = values[0];
+            this.firstName = values[1];
+            this.lastName = values[2];
+            this.payType = values[3];
+            this.salary = Convert.ToDouble(values[4]);
+            this.startDate = Convert.ToDateTime(values[5]);
+            this.residenceState = new ResidenceState(values[6]);
+            this.currentHours = Convert.ToDouble(values[7]);
+        }
         abstract public double getPeriodGrossPay();
     }
 
