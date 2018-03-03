@@ -31,12 +31,19 @@ namespace SteveJulienSNLtest.Models
             this.currentHours = Convert.ToDouble(values[7]);
         }
         abstract public double getPeriodGrossPay();
+        public double getNetPay()
+        {
+            return getPeriodGrossPay() - ( getFederalTax() + getStateTax() );
+        }
+        public double getFederalTax()
+        {
+            return getPeriodGrossPay() * PayrollConstants.FEDERAL_TAX_RATE;
+        }
+        public double getStateTax()
+        {
+            return getPeriodGrossPay() * residenceState.getStateTaxRate();
+        } 
     }
 
-    public class PayPeriod
-    {
-        public static double WEEKS_PER_YEAR = 52;
-        public static double WEEKS_PER_PAY_PERIOD = 2;
-    }
 
 }

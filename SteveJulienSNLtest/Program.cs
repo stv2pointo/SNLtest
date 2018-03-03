@@ -15,12 +15,16 @@ namespace SteveJulienSNLtest
         {
             string[] rawLines = readFromFile();
             Dictionary<string, Employee> dictionary = getEmployeeDict(rawLines);
-            for(int i=1;i<10;i++)
+            for(int i=5;i<8;i++)
             {
                 Employee emp = dictionary[i.ToString()];
                 string firstEmployeeName = emp.firstName + " " + emp.lastName;
-                double rate = emp.getPeriodGrossPay();
-                Console.WriteLine(firstEmployeeName + " : $" + Convert.ToDouble(rate));
+                string net = emp.getNetPay().ToString();
+                string gross = emp.getPeriodGrossPay().ToString();
+                string fed = emp.getFederalTax().ToString();
+                string stat = emp.getStateTax().ToString();
+                string hours = emp.currentHours.ToString();
+                Console.WriteLine(firstEmployeeName + " hours: " + hours + " net: " + net + " gross: " + gross + " fed: " + fed + " stat: " + stat);
             }
             
             //writeToFile(readFromFile());
