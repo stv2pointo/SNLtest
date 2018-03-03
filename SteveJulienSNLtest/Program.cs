@@ -28,7 +28,7 @@ namespace SteveJulienSNLtest
             {
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(path);
-                while ((line = file.ReadLine()) != null && counter < 5)
+                while ((line = file.ReadLine()) != null)
                 {
                     fileLines.Add(line);
                     counter++;
