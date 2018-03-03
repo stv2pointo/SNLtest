@@ -9,14 +9,13 @@ namespace SteveJulienSNLtest.Models
    
     public abstract class Employee
     {
- 
         public string Id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string payType { get; set; }
         public double salary { get; set; }
         public DateTime startDate { get; set; }
-        public string residenceState { get; set; }
+        public ResidenceState residenceState { get; set; }
         public double currentHours { get; set; }
 
         abstract public double getPeriodGrossPay();

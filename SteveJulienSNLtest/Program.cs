@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SteveJulienSNLtest.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace SteveJulienSNLtest
     {
         static void Main(string[] args)
         {
+
             writeToFile(readFromFile());
        
             Console.ReadLine();
@@ -28,9 +30,11 @@ namespace SteveJulienSNLtest
             {
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(path);
-                while ((line = file.ReadLine()) != null)
+                while ((line = file.ReadLine()) != null && counter < 10)
                 {
-                    fileLines.Add(line);
+                    string[] payIndicators = line.Split(',');
+                    fileLines.Add(payIndicators[3]);
+                    //fileLines.Add(line);
                     counter++;
                 }
 
@@ -38,7 +42,7 @@ namespace SteveJulienSNLtest
             }
             catch (Exception e)
             {
-                Console.WriteLine("bad path: " + e.Message);
+                Console.WriteLine(e.Message);
             }
 
             return fileLines.ToArray();
@@ -46,8 +50,23 @@ namespace SteveJulienSNLtest
 
         public static void writeToFile(string[] lines)
         {
-            System.IO.File.WriteAllLines(@"C:\SecurityNational\WriteLines.txt", lines);
+            try
+            {
+                System.IO.File.WriteAllLines(@"C:\SecurityNational\WriteLines.txt", lines);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
+
+        //public void loadEmployeeDict(string[] lines)
+        //{
+        //    Dictionary<string, Employee> employeeDict = new Dictionary<string, Employee>();
+        //    Employee employee = new Employee();
+
+        //    employeeDict.Add("abc", new Employee)
+        //}
 
     }
 }
