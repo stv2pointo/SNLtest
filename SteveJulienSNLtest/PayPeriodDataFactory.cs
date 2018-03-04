@@ -11,7 +11,7 @@ namespace SteveJulienSNLtest
 {
     public class PayPeriodDataFactory
     {
-        public static int ROWS_TO_COLLECT = int.MaxValue;
+        public static int ROWS_TO_COLLECT = 25;// int.MaxValue;
         private string[] rawLines;
         private PayrollEntry[] payrollEntries;
         private Dictionary<string, PayrollEntry> payrollDict;
@@ -101,6 +101,23 @@ namespace SteveJulienSNLtest
                 PayrollEntry payrollEntry = payrollEntries[i];
                 payrollDict.Add(payrollEntry.Id, payrollEntry);
             }
+        }
+
+        public PayrollEntry GetByEmployeeId(string employeeId)
+        {
+            PayrollEntry entry = null;
+            if (payrollDict != null && payrollDict.Count > 0)
+            {
+                try
+                {
+                    entry = payrollDict[employeeId];
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("No employee by that id: " + e.Message);
+                }
+            }
+            return entry;
         }
     }
 }
