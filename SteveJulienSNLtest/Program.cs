@@ -13,28 +13,26 @@ namespace SteveJulienSNLtest
     {
         static void Main(string[] args)
         {
-            string[] rawLines = readFromFile();
-        
-            Dictionary<string, Employee> dictionary = getEmployeeDict(rawLines);
-            createPayChecks(dictionary);
-            //for(int i=5;i<8;i++)
-            //{
-            //    Employee emp = dictionary[i.ToString()];
-            //    string firstEmployeeName = emp.firstName + " " + emp.lastName;
-            //    string net = emp.getNetPay().ToString();
-            //    string gross = emp.getPeriodGrossPay().ToString();
-            //    string fed = emp.getFederalTax().ToString();
-            //    string stat = emp.getStateTax().ToString();
-            //    string hours = emp.currentHours.ToString();
-            //    Console.WriteLine(firstEmployeeName + " hours: " + hours + " net: " + net + " gross: " + gross + " fed: " + fed + " stat: " + stat);
-            //}
-            
-            //writeToFile(readFromFile());
-       
-            //Console.ReadLine();
+            string[] rawLines = getLinesFromInputFile();
+            Employee[] employees = createAndGetEmployeePayrollRecords(rawLines);
+
+            //Dictionary<string, Employee> dictionary = getEmployeeDict(rawLines);
+            //Employee[] sortedPaychecks = sortDictionaryByGrossPayDesc(dictionary);
+            Employee[] sortedPaychecks = sortEmployeesByGross(employees);
+            createPayChecks(sortedPaychecks);
         }
 
-        public static string[] readFromFile()
+        private static Employee[] sortEmployeesByGross(Employee[] employees)
+        {
+            Array.Sort(employees, delegate (Employee emp1, Employee emp2)
+            {
+                return emp2.getPeriodGrossPay().CompareTo(emp1.getPeriodGrossPay());
+            });
+
+            return employees;
+        }
+    
+        public static string[] getLinesFromInputFile()
         {
             int counter = 0;
             string line;
@@ -45,7 +43,7 @@ namespace SteveJulienSNLtest
             {
                 System.IO.StreamReader file =
                     new System.IO.StreamReader(path);
-                while ((line = file.ReadLine()) != null && counter < 5)
+                while ((line = file.ReadLine()) != null)
                 {
                     fileLines.Add(line);
                     counter++;
@@ -67,16 +65,46 @@ namespace SteveJulienSNLtest
             {
                 System.IO.File.WriteAllLines(@"C:\SecurityNational\WriteLines.txt", lines);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
         }
 
-        public static Dictionary<string, Employee> getEmployeeDict(string[] lines)
+        //public static Dictionary<string, Employee> getEmployeeDict(string[] lines)
+        //{
+        //    Dictionary<string, Employee> employeeDict = new Dictionary<string, Employee>();
+        //    foreach (string line in lines)
+        //    {
+        //        string[] fields = line.Split(',');
+        //        string payType = fields[3];
+        //        Employee emp = null;
+        //        if (payType.ToUpper().Equals("H"))
+        //        {
+        //            emp = new HourlyEmployee(fields);
+        //        }
+        //        else if (payType.ToUpper().Equals("S"))
+        //        {
+        //            emp = new SalaryEmployee(fields);
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("ERROR: Unknown PayType for Employee Id: " + fields[0] + " Name: " +
+        //                fields[2] + ", " + fields[1]);
+        //        }
+        //        if (emp != null)
+        //        {
+        //            employeeDict.Add(fields[0], emp);
+        //        }
+        //    }
+        //    return employeeDict;
+        //}
+
+        public static Employee[] createAndGetEmployeePayrollRecords(string[] rawLines)
         {
-            Dictionary<string, Employee> employeeDict = new Dictionary<string, Employee>();
-            foreach(string line in lines)
+            Employee[] employees = new Employee[rawLines.Length];
+            int index = 0;
+            foreach (string line in rawLines)
             {
                 string[] fields = line.Split(',');
                 string payType = fields[3];
@@ -96,35 +124,35 @@ namespace SteveJulienSNLtest
                 }
                 if (emp != null)
                 {
-                    employeeDict.Add(fields[0], emp);
+                    employees[index] = emp;
+                    index++;
                 }
             }
-            return employeeDict;    
+            return employees;
         }
 
 
-        public static void createPayChecks(Dictionary<string, Employee> dictionary)
+        public static void createPayChecks(Employee[] employeesSortedGrossDescArray)
         {
             string path = PayrollConstants.DEFAULT_PAYCHECKS_WRITE_PATH;
             if (File.Exists(path))
             {
                 File.Delete(path);
             }
-            string[] payChecks = new string[dictionary.Count];
+    
             try
             {
-                foreach (KeyValuePair<string, Employee> kvp in dictionary)
+                foreach (Employee e in employeesSortedGrossDescArray)
                 {
-
-                    System.IO.File.AppendAllText(path, 
+                    System.IO.File.AppendAllText(path,
                         string.Format("{0} {1} {2} {3} {4} {5} {6} {7}",
-                            kvp.Key,
-                            kvp.Value.firstName,
-                            kvp.Value.lastName,
-                            kvp.Value.getPeriodGrossPay().ToString("F"),
-                            kvp.Value.getFederalTax().ToString("F"),
-                            kvp.Value.getStateTax().ToString("F"),
-                            kvp.Value.getNetPay().ToString("F"),
+                            e.Id,
+                            e.firstName,
+                            e.lastName,
+                            e.getPeriodGrossPay().ToString("F"),
+                            e.getFederalTax().ToString("F"),
+                            e.getStateTax().ToString("F"),
+                            e.getNetPay().ToString("F"),
                             Environment.NewLine));
                 }
             }
@@ -134,17 +162,21 @@ namespace SteveJulienSNLtest
             }
         }
 
-        //public static void sortDictionaryByGrossPayDesc(Dictionary<string, Employee> dictionary)
-        //{
-        //    List<KeyValuePair<string, Employee>> myList = dictionary.ToList();
 
-        //    myList.Sort(
-        //        delegate (KeyValuePair<string, Employee> pair1,
-        //        KeyValuePair<string, Employee> pair2)
-        //        {
-        //            return pair1.Value.getPeriodGrossPay().CompareTo(pair2.Value.getPeriodGrossPay());
-        //        }
-        //    );
+        //public static Employee[] sortDictionaryByGrossPayDesc(Dictionary<string, Employee> dictionary)
+        //{
+        //    Employee[] paychecksArray = new Employee[dictionary.Count];
+        //    int index = 0;
+        //    foreach (KeyValuePair<string, Employee> kvp in dictionary)
+        //    {
+        //        paychecksArray[index] = kvp.Value;
+        //        index++;
+        //    }
+        //    Array.Sort(paychecksArray, delegate(Employee emp1, Employee emp2) {
+        //        return emp2.getPeriodGrossPay().CompareTo(emp1.getPeriodGrossPay());
+        //    });
+
+        //    return paychecksArray;
         //}
     }
 }

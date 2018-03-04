@@ -43,6 +43,8 @@ namespace SteveJulienSNLtest.Models
         {
             return getPeriodGrossPay() * residenceState.getStateTaxRate();
         } 
+
+        
     }
 
 
