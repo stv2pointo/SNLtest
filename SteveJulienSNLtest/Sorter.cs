@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
-    public class Sorter
+    public static class Sorter
     {
-        public PayrollEntry[] sortPayrollEntriesByGross(PayrollEntry[] entries)
+        public static PayrollEntry[] sortPayrollEntriesByGross(PayrollEntry[] entries)
         {
             Array.Sort(entries, delegate (PayrollEntry emp1, PayrollEntry emp2)
             {
@@ -19,10 +19,10 @@ namespace SteveJulienSNLtest
             return entries;
         }
 
-        public List<TopEarnerModel> getSortedListGrossLastNameFirstName(PayrollEntry[] entries)
+        public static List<TopEarnerModel> getSortedListGrossLastNameFirstName(PayrollEntry[] entries)
         {
             List<TopEarnerModel> topEarnerList = new List<TopEarnerModel>();
-            for(int i = 0; i < entries.Length; i++)
+            for (int i = 0; i < entries.Length; i++)
             {
                 PayrollEntry entry = entries[i];
                 TopEarnerModel earner = new TopEarnerModel();
@@ -40,11 +40,41 @@ namespace SteveJulienSNLtest
             return top;
         }
 
-        private int getNumYearsWorked(DateTime startDate)
+        private static int getNumYearsWorked(DateTime startDate)
         {
             DateTime now = DateTime.Now;
             TimeSpan timespan = now.Subtract(startDate);
-            return (int) timespan.TotalDays / 365;
+            return (int)timespan.TotalDays / 365;
+        }
+
+        public static List<PayrollEntry>[] sortEntriesIntoArrayOfEntryListsByState(PayrollEntry[] entries)
+        {
+            int numStates = (int)States.STATE_COUNT;
+            List<PayrollEntry>[] stateEntries = new List<PayrollEntry>[numStates];
+
+            for(int i = 0; i < numStates; i++)
+            {
+                stateEntries[i] = new List<PayrollEntry>();
+            }
+
+            for (int i = 0; i < entries.Length; i++)
+            {
+                string stateName = entries[i].residenceState.getName();
+                int stateIndex = (int)Enum.Parse(typeof(States), stateName);
+                stateEntries[stateIndex].Add(entries[i]);      
+            }
+            
+            return stateEntries;
+        }
+
+        public static StateReport[] sortStateReportByStateName(StateReport[] reports)
+        {
+            Array.Sort(reports, delegate (StateReport report1, StateReport report2)
+            {
+                return report2.getName().CompareTo(report1.getName());
+            });
+
+            return reports;
         }
 
 

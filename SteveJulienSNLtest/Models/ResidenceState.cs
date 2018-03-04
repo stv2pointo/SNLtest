@@ -54,5 +54,7 @@ namespace SteveJulienSNLtest.Models
             return stateTaxRate;
         }
     }
-    
+
+
+
 }

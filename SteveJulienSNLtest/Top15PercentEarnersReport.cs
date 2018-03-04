@@ -33,9 +33,9 @@ namespace SteveJulienSNLtest
 
         private void setTopEarnersStrings()
         {
-            Sorter sorter = new Sorter();
+            
             List<TopEarnerModel> topEarnersModels = 
-                sorter.getSortedListGrossLastNameFirstName(top15percentEarners);
+                Sorter.getSortedListGrossLastNameFirstName(top15percentEarners);
             topEarnerStrings = new string[topEarnersModels.Count];
             int index = 0;
             foreach(TopEarnerModel m in topEarnersModels)

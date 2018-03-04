@@ -17,12 +17,12 @@ namespace SteveJulienSNLtest
             //new TimeTest().run();
             PayPeriodDataFactory factory = new PayPeriodDataFactory(null);
             PayrollEntry[] payrollEntries = factory.getPayrollEntries();
-            PayrollEntry[] sortedPayrollEntries = new Sorter().sortPayrollEntriesByGross(payrollEntries);
+            PayrollEntry[] sortedPayrollEntries = Sorter.sortPayrollEntriesByGross(payrollEntries);
             PayCheckReport paycheckReport = new PayCheckReport(null, sortedPayrollEntries);
             paycheckReport.writePaychecksToFile();
             Top15PercentEarnersReport topEarners = new Top15PercentEarnersReport(null, sortedPayrollEntries);
             topEarners.writeTopEarnersReportToFile();
-
+            new StateReportFactory(null, payrollEntries);
 
             Console.ReadLine();
         }
