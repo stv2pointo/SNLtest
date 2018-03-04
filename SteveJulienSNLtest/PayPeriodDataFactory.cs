@@ -14,7 +14,6 @@ namespace SteveJulienSNLtest
         public static int ROWS_TO_COLLECT = 5;
         private string[] rawLines;
         private PayrollEntry[] payrollEntries;
-        private PayrollEntry[] sortedGross;
         private Dictionary<string, PayrollEntry> payrollDict;
         private string path;
 
@@ -22,7 +21,7 @@ namespace SteveJulienSNLtest
         {
             string pathEnd = (userInputPath == null) ? @"..\..\Resources\Employees.txt" : userInputPath;
             path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),pathEnd); 
-            run();
+            initializeDataSetsForPayCheckReports();
         }
 
         public PayrollEntry[] getPayrollEntries()
@@ -30,25 +29,24 @@ namespace SteveJulienSNLtest
             return payrollEntries;
         }
 
-        public PayrollEntry[] getSortedGross()
-        {
-            return sortedGross;
-        }
-        private void run()
+        private void initializeDataSetsForPayCheckReports()
         {
             getLinesFromInputFile();
             createPayrollRecords();
         }
         private void getLinesFromInputFile()
-        {
-            int index = 0;
+        { 
             string line;
             int numLines = File.ReadLines(path).Count();
+            // TODO: REMOVE COUNT STUFF AFTER TESTING
+            numLines = (numLines > ROWS_TO_COLLECT) ? ROWS_TO_COLLECT : numLines;
+
             if (numLines > 0)
             {
                 rawLines = new string[numLines];
                 try
                 {
+                    int index = 0;
                     System.IO.StreamReader file =
                         new System.IO.StreamReader(path);
                     while ((line = file.ReadLine()) != null && index < ROWS_TO_COLLECT)

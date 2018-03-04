@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SteveJulienSNLtest.Models
 {
    
-    public abstract class Employee
+    public abstract class PayrollEntry
     {
         public string Id { get; set; }
         public string firstName { get; set; }
@@ -19,7 +19,7 @@ namespace SteveJulienSNLtest.Models
         public double currentHours { get; set; }
 
         // TODO: Handle number Exceptions during construction
-        public Employee(string[] values)
+        public PayrollEntry(string[] values)
         {
             this.Id = values[0];
             this.firstName = values[1];
