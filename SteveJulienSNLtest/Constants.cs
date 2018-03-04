@@ -8,9 +8,10 @@ namespace SteveJulienSNLtest.Models
 {
     public static class Constants
     {
-        public static string DEFAULT_STATE_REPORT_WRITE_PATH = @"C:\SecurityNational\StateReports.txt";
-        public static string DEFAULT_PAYCHECKS_WRITE_PATH = @"C:\SecurityNational\Paychecks.txt";
-        public static string DEFAULT_TOP_EARNERS_WRITE_PATH = @"C:\SecurityNational\TopEarners.txt";
+        public static string DEFAULT_INPUT_PATH = @"..\..\Resources\Employees.txt";
+        public static string DEFAULT_STATE_REPORT_WRITE_PATH = @"C:\SteveJulienTest\StateReports.txt";
+        public static string DEFAULT_PAYCHECKS_WRITE_PATH = @"C:\SteveJulienTest\Paychecks.txt";
+        public static string DEFAULT_TOP_EARNERS_WRITE_PATH = @"C:\SteveJulienTest\TopEarners.txt";
         public static double WEEKS_PER_YEAR = 52.0;
         public static double WEEKS_PER_PAY_PERIOD = 2.0;
         public static double FEDERAL_TAX_RATE = 0.15;

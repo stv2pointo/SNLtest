@@ -11,7 +11,7 @@ namespace SteveJulienSNLtest
 {
     public class PayPeriodDataFactory
     {
-        public static int ROWS_TO_COLLECT = 25;// int.MaxValue;
+        public static int ROWS_TO_COLLECT = 5;// int.MaxValue;
         private string[] rawLines;
         private PayrollEntry[] payrollEntries;
         private Dictionary<string, PayrollEntry> payrollDict;
