@@ -29,7 +29,7 @@ namespace SteveJulienSNLtest
                 foreach (PayrollEntry entry in entries)
                 {
                     times.Add(entry.currentHours);
-                    pays.Add(entry.getNetPay());
+                    pays.Add(entry.getNetPay());   
                     taxList.Add(entry.getStateTax());
                 }
                 medianTimeWorked = calculateMedianOfList(times);

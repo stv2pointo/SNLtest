@@ -71,7 +71,7 @@ namespace SteveJulienSNLtest
         {
             Array.Sort(reports, delegate (StateReport report1, StateReport report2)
             {
-                return report2.getName().CompareTo(report1.getName());
+                return report1.getName().CompareTo(report2.getName());
             });
 
             return reports;
