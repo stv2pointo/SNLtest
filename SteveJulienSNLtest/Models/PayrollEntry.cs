@@ -37,7 +37,7 @@ namespace SteveJulienSNLtest.Models
         }
         public double getFederalTax()
         {
-            return getPeriodGrossPay() * PayrollConstants.FEDERAL_TAX_RATE;
+            return getPeriodGrossPay() * Constants.FEDERAL_TAX_RATE;
         }
         public double getStateTax()
         {

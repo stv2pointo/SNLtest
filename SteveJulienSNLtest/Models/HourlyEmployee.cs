@@ -21,11 +21,11 @@ namespace SteveJulienSNLtest.Models
                 
                 if(currentHours > 90)
                 {
-                    pay *= PayrollConstants.OVER_90_FACTOR;
+                    pay *= Constants.OVER_90_FACTOR;
                 }
                 else if(currentHours > 80)
                 {
-                    pay *= PayrollConstants.OVER_80_FACTOR;
+                    pay *= Constants.OVER_80_FACTOR;
                 }
             }
             return pay;

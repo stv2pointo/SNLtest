@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest.Models
 {
-    class PayrollConstants
+    class Constants
     {
         public static string DEFAULT_PAYCHECKS_WRITE_PATH = @"C:\SecurityNational\Paychecks.txt";
+        public static string DEFAULT_TOP_EARNERS_WRITE_PATH = @"C:\SecurityNational\TopEarners.txt";
         public static double WEEKS_PER_YEAR = 52.0;
         public static double WEEKS_PER_PAY_PERIOD = 2.0;
         public static double FEDERAL_TAX_RATE = 0.15;

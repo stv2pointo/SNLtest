@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
-    public class PayCheckWriter
+    public class PayCheckReport
     {
         private string[] paycheckStrings;
         private string path;
 
-        public PayCheckWriter(string userInputPath, PayrollEntry[] sortedPayrollEntries)
+        public PayCheckReport(string userInputPath, PayrollEntry[] sortedPayrollEntries)
         {
-            path = string.IsNullOrEmpty(userInputPath) ? PayrollConstants.DEFAULT_PAYCHECKS_WRITE_PATH : userInputPath;
+            path = string.IsNullOrEmpty(userInputPath) ? Constants.DEFAULT_PAYCHECKS_WRITE_PATH : userInputPath;
             createPayrollLines(sortedPayrollEntries);
         }
 
@@ -37,14 +37,7 @@ namespace SteveJulienSNLtest
         }
         public void writePaychecksToFile()
         {
-            try
-            {
-                System.IO.File.WriteAllLines(PayrollConstants.DEFAULT_PAYCHECKS_WRITE_PATH, paycheckStrings);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            StringArrayToFileWriter.write(path, paycheckStrings);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SteveJulienSNLtest.Models
 
         public override double getPeriodGrossPay()
         {
-            return salary / (PayrollConstants.WEEKS_PER_YEAR / PayrollConstants.WEEKS_PER_PAY_PERIOD);
+            return salary / (Constants.WEEKS_PER_YEAR / Constants.WEEKS_PER_PAY_PERIOD);
         }
     }
 }

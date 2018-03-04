@@ -17,9 +17,12 @@ namespace SteveJulienSNLtest
             //new TimeTest().run();
             PayPeriodDataFactory factory = new PayPeriodDataFactory(null);
             PayrollEntry[] payrollEntries = factory.getPayrollEntries();
-            PayrollEntry[] sortedPayrollEntries = new PayrollEntrySorter().sortPayrollEntriesByGross(payrollEntries);
-            PayCheckWriter writer = new PayCheckWriter(null, sortedPayrollEntries);
-            writer.writePaychecksToFile();
+            PayrollEntry[] sortedPayrollEntries = new Sorter().sortPayrollEntriesByGross(payrollEntries);
+            PayCheckReport paycheckReport = new PayCheckReport(null, sortedPayrollEntries);
+            paycheckReport.writePaychecksToFile();
+            Top15PercentEarnersReport topEarners = new Top15PercentEarnersReport(null, sortedPayrollEntries);
+            topEarners.writeTopEarnersReportToFile();
+
 
             Console.ReadLine();
         }

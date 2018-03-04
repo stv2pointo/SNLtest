@@ -45,16 +45,18 @@
   <ItemGroup>
     <Compile Include="Models\PayrollEntry.cs" />
     <Compile Include="Models\HourlyEmployee.cs" />
-    <Compile Include="Models\NoKnownResidenceStateException.cs" />
-    <Compile Include="Models\PayrollConstants.cs" />
+    <Compile Include="Models\TopEarnerModel.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Models\ResidenceState.cs" />
     <Compile Include="Models\SalaryEmployee.cs" />
-    <Compile Include="PayCheckWriter.cs" />
+    <Compile Include="PayCheckReport.cs" />
     <Compile Include="PayPeriodDataFactory.cs" />
-    <Compile Include="PayrollEntrySorter.cs" />
+    <Compile Include="Sorter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringArrayToFileWriter.cs" />
     <Compile Include="TimeTest.cs" />
+    <Compile Include="Top15PercentEarnersReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
