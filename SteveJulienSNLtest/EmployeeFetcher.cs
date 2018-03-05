@@ -12,6 +12,7 @@ namespace SteveJulienSNLtest.Models
                 Console.Write("Enter employee id: ");
 
                 string id = Console.ReadLine();
+
                 EmployeePayrollEntry employee = factory.GetByEmployeeId(id);
                 string emp = "No employee by that id.";
                 if (employee != null)

@@ -14,10 +14,9 @@ namespace SteveJulienSNLtest
         private Dictionary<string, EmployeePayrollEntry> payrollDict;
         private string path;
 
-        public PayPeriodDataFactory(string userInputPath)
+        public PayPeriodDataFactory(string path)
         {
-            string pathEnd = (userInputPath == null) ? Constants.DEFAULT_INPUT_PATH : userInputPath;
-            path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),pathEnd); 
+            this.path = path;
             initializeDataSetsForPayCheckReports();
         }
 
@@ -32,64 +31,76 @@ namespace SteveJulienSNLtest
             createPayrollRecords();
         }
         private void getLinesFromInputFile()
-        { 
+        {
             string line;
-            int numLines = File.ReadLines(path).Count();
+            int numLines = 0;
+            try
+            {
+                numLines = File.ReadLines(path).Count();
+            }
+            catch
+            {
+
+            }
 
             if (numLines > 0)
             {
                 rawLines = new string[numLines];
-                try
-                {
-                    int index = 0;
-                    StreamReader file =
-                        new StreamReader(path);
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        rawLines[index] = line;
-                        index++;
-                    }
 
-                    file.Close();
-                }
-                catch (Exception e)
+                int index = 0;
+                StreamReader file =
+                    new StreamReader(path);
+                while ((line = file.ReadLine()) != null)
                 {
-                    Console.WriteLine(e.Message);
+                    rawLines[index] = line;
+                    index++;
                 }
+
+                file.Close();
+
+
             }
-            
+
         }
 
         private void createPayrollRecords()
         {
-            payrollEntries = new EmployeePayrollEntry[rawLines.Length];
-
-            for (int i=0;i<rawLines.Length;i++)
+            try
             {
-                string[] fields = rawLines[i].Split(',');
-                string payType = fields[3];
-                EmployeePayrollEntry emp = null;
-                if (payType.ToUpper().Equals("H"))
+                payrollEntries = new EmployeePayrollEntry[rawLines.Length];
+
+                for (int i = 0; i < rawLines.Length; i++)
                 {
-                    emp = new HourlyEmployeeEntry(fields);
+                    string[] fields = rawLines[i].Split(',');
+                    string payType = fields[3];
+                    EmployeePayrollEntry emp = null;
+                    if (payType.ToUpper().Equals("H"))
+                    {
+                        emp = new HourlyEmployeeEntry(fields);
+                    }
+                    else if (payType.ToUpper().Equals("S"))
+                    {
+                        emp = new SalaryEmployeeEntry(fields);
+                    }
+                    else
+                    {
+                        Console.WriteLine("ERROR: Unknown PayType for Employee Id: " + fields[0] + " Name: " +
+                            fields[2] + ", " + fields[1]);
+                    }
+                    payrollEntries[i] = emp;
                 }
-                else if (payType.ToUpper().Equals("S"))
-                {
-                    emp = new SalaryEmployeeEntry(fields);
-                }
-                else
-                {
-                    Console.WriteLine("ERROR: Unknown PayType for Employee Id: " + fields[0] + " Name: " +
-                        fields[2] + ", " + fields[1]);
-                }
-                payrollEntries[i] = emp;
+            }
+            catch
+            {
+                payrollEntries = new EmployeePayrollEntry[1];
+                payrollEntries[0] = new HourlyEmployeeEntry(new string[] { "NoValues", "NoValues", "NoValues", "H", "0.0", "1/1/2000", "NO", "0.0" });
             }
         }
 
         public void writeDictionary()
         {
             payrollDict = new Dictionary<string, EmployeePayrollEntry>();
-            for(int i = 0; i < payrollEntries.Length; i++)
+            for (int i = 0; i < payrollEntries.Length; i++)
             {
                 EmployeePayrollEntry payrollEntry = payrollEntries[i];
                 payrollDict.Add(payrollEntry.Id, payrollEntry);
@@ -105,9 +116,9 @@ namespace SteveJulienSNLtest
                 {
                     entry = payrollDict[employeeId];
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Console.WriteLine("No employee found by that id: " + e.Message);
+                    //Console.WriteLine("No employee found by that id: " + e.Message);
                 }
             }
             return entry;

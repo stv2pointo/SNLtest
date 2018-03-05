@@ -15,19 +15,19 @@ namespace SteveJulienSNLtest
                 return Constants.DEFAULT_INPUT_PATH;
             }
 
-            int tries = 0;
+            int tries = 1;
             string input = promptUser("Enter path of input file: ");
 
             while (!isValidFilename(input) || !isFileOfEmployeeRecords(input))
             {
-                tries++;
                 input = promptUser("Enter path of input file: ");
                 if (tries == 3)
                 {
                     Console.WriteLine("Failed to set path, proceeding with default file (Employees.txt).\n");
-                    input = @"..\..\Resources\Employees.txt";
+                    input = Constants.DEFAULT_INPUT_PATH;
                     break;
                 }
+                tries++;
             }
             Console.WriteLine("Processing raw payroll data...\n");
             return input;

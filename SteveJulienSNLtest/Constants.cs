@@ -1,8 +1,12 @@
-﻿namespace SteveJulienSNLtest.Models
+﻿using System.IO;
+using System.Reflection;
+
+namespace SteveJulienSNLtest.Models
 {
     public static class Constants
     {
-        public static string DEFAULT_INPUT_PATH = @"..\..\Resources\Employees.txt";
+        public static string DEFAULT_INPUT_PATH =
+            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Resources\Employees.txt");
         public static string DEFAULT_STATE_REPORT_WRITE_PATH = @"C:\SteveJulienTest\StateReports.txt";
         public static string DEFAULT_PAYCHECKS_WRITE_PATH = @"C:\SteveJulienTest\Paychecks.txt";
         public static string DEFAULT_TOP_EARNERS_WRITE_PATH = @"C:\SteveJulienTest\TopEarners.txt";
