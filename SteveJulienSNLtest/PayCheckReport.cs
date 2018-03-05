@@ -7,24 +7,18 @@ using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
-    public class PayCheckReport
+    public static class PayCheckReport
     {
-        private string[] paycheckStrings;
-        private string path;
+        private static string[] paycheckStrings;
+        private static string path = Constants.DEFAULT_PAYCHECKS_WRITE_PATH;
 
-        public PayCheckReport(string userInputPath, PayrollEntry[] sortedPayrollEntries)
+        public static void run(EmployeePayrollEntry[] sortedEntries)
         {
-            path = string.IsNullOrEmpty(userInputPath) ? Constants.DEFAULT_PAYCHECKS_WRITE_PATH : userInputPath;
-            createPayrollLines(sortedPayrollEntries);
-        }
+            paycheckStrings = new string[sortedEntries.Length];
 
-        private void createPayrollLines(PayrollEntry[] sorted)
-        {
-            paycheckStrings = new string[sorted.Length];
-
-            for (int i = 0; i < sorted.Length; i++)
+            for (int i = 0; i < sortedEntries.Length; i++)
             {
-                PayrollEntry e = sorted[i];
+                EmployeePayrollEntry e = sortedEntries[i];
                 string text = e.Id;
                 text += " " + e.firstName;
                 text += " " + e.lastName;
@@ -34,8 +28,10 @@ namespace SteveJulienSNLtest
                 text += " " + e.getNetPay().ToString("F");
                 paycheckStrings[i] = text;
             }
+
+            writePaychecksToFile();
         }
-        public void writePaychecksToFile()
+        private static void writePaychecksToFile()
         {
             StringArrayToFileWriter.write(path, paycheckStrings);
         }

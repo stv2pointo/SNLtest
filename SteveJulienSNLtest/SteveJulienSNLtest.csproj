@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\PayrollEntry.cs" />
+    <Compile Include="EmployeeFetcher.cs" />
+    <Compile Include="InputFileValidator.cs" />
+    <Compile Include="Models\EmployeePayrollEntry.cs" />
     <Compile Include="Models\HourlyEmployee.cs" />
     <Compile Include="Models\StateReportModel.cs" />
     <Compile Include="Models\TopEarnerModel.cs" />
@@ -58,7 +60,6 @@
     <Compile Include="StateReport.cs" />
     <Compile Include="StateReportFactory.cs" />
     <Compile Include="StringArrayToFileWriter.cs" />
-    <Compile Include="TimeTest.cs" />
     <Compile Include="Top15PercentEarnersReport.cs" />
   </ItemGroup>
   <ItemGroup>

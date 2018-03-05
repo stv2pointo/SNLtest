@@ -14,11 +14,11 @@ namespace SteveJulienSNLtest
         private double medianNetPay;
         private double taxes;
 
-        public StateReport(List<PayrollEntry> entries)
+        public StateReport(List<EmployeePayrollEntry> entries)
         {
             setValues(entries);
         }
-        private void setValues(List<PayrollEntry> entries)
+        private void setValues(List<EmployeePayrollEntry> entries)
         {
             if(entries != null && entries.Count > 0)
             {
@@ -26,7 +26,7 @@ namespace SteveJulienSNLtest
                 List<double> times = new List<double>();
                 List<double> pays = new List<double>();
                 List<double> taxList = new List<double>();
-                foreach (PayrollEntry entry in entries)
+                foreach (EmployeePayrollEntry entry in entries)
                 {
                     times.Add(entry.currentHours);
                     pays.Add(entry.getNetPay());   

@@ -1,27 +1,17 @@
 ﻿using SteveJulienSNLtest.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
-    public class StateReportFactory
+    public static class StateReportFactory
     {
-        private List<PayrollEntry>[] arrayOfLists;
-        private StateReport[] stateReports;
-        private string[] stateReportLines;
-        private string path;
-        //private int numStatesInEntries;
-        private int numStates;
-        public StateReportFactory(string userInputPath, PayrollEntry[] entries)
-        {
-            path = string.IsNullOrEmpty(userInputPath) ? Constants.DEFAULT_STATE_REPORT_WRITE_PATH : userInputPath;
-            run(entries);
-        }
+        private static List<EmployeePayrollEntry>[] arrayOfLists;
+        private static StateReport[] stateReports;
+        private static string[] stateReportLines;
+        private static string path = Constants.DEFAULT_STATE_REPORT_WRITE_PATH;
+        private static int numStates;
 
-        private void run(PayrollEntry[] entries)
+        public static void run(EmployeePayrollEntry[] entries)
         {
             numStates = (int)States.STATE_COUNT;
 
@@ -38,27 +28,27 @@ namespace SteveJulienSNLtest
             write();
         }
 
-        private void sortPayrollEntriesIntoArrayOfListsByState(PayrollEntry[] entries)
+        private static void sortPayrollEntriesIntoArrayOfListsByState(EmployeePayrollEntry[] entries)
         {
             arrayOfLists = Sorter.sortEntriesIntoArrayOfEntryListsByState(entries);
         }
 
-        private void createStateReportsFromArrayOfEntryLists()
+        private static void createStateReportsFromArrayOfEntryLists()
         {
             for (int i = 0; i < arrayOfLists.Length; i++)
             {
-                List<PayrollEntry> entryList = arrayOfLists[i];
+                List<EmployeePayrollEntry> entryList = arrayOfLists[i];
                 StateReport report = new StateReport(entryList);
                 stateReports[i] = report;
             }
         }
 
-        private void sortReports()
+        private static void sortReports()
         {
             stateReports = Sorter.sortStateReportByStateName(stateReports);
         }
 
-        private void createStateReportLines()
+        private static void createStateReportLines()
         {
             int count = stateReports.Length;
             stateReportLines = new string[count];
@@ -73,9 +63,10 @@ namespace SteveJulienSNLtest
             }
         }
 
-        private void write()
+        private static void write()
         {
             StringArrayToFileWriter.write(path, stateReportLines);
         }
+
     }
 }

@@ -12,7 +12,7 @@ namespace SteveJulienSNLtest.Models
         public double medianTimeWorked { get; set; }
         public double medianNetPay { get; set; }
         public double taxes { get; set; }
-        public StateReportModel(PayrollEntry entry)
+        public StateReportModel(EmployeePayrollEntry entry)
         {
 
         }

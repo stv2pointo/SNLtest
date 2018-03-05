@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+
 
 namespace SteveJulienSNLtest
 {
@@ -12,7 +10,8 @@ namespace SteveJulienSNLtest
         {
             try
             {
-                System.IO.File.WriteAllLines(path, array);
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                File.WriteAllLines(path, array);
             }
             catch (Exception e)
             {
@@ -20,4 +19,6 @@ namespace SteveJulienSNLtest
             }
         }
     }
+
+    
 }

@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
-    public class Top15PercentEarnersReport
+    public static class Top15PercentEarnersReport
     {
-        private PayrollEntry[] top15percentEarners;
-        private string[] topEarnerStrings;
-        private string path;
+        private static EmployeePayrollEntry[] top15percentEarners;
+        private static string[] topEarnerStrings;
+        private static string path = Constants.DEFAULT_TOP_EARNERS_WRITE_PATH;
 
-        public Top15PercentEarnersReport(string userInputPath, PayrollEntry[] sortedEntries)
+        public static void run(EmployeePayrollEntry[] sortedEntries)
         {
-            path = string.IsNullOrEmpty(userInputPath) ? Constants.DEFAULT_TOP_EARNERS_WRITE_PATH : userInputPath;
             setTop15PercentEarners(sortedEntries);
             setTopEarnersStrings();
+            writeTopEarnersReportToFile();
         }
 
-        private void setTop15PercentEarners(PayrollEntry[] sortedEntries)
+        private static void setTop15PercentEarners(EmployeePayrollEntry[] sortedEntries)
         {
             int count = (int)(sortedEntries.Length * 0.15);
-            top15percentEarners = new PayrollEntry[count];
+            top15percentEarners = new EmployeePayrollEntry[count];
             for(int i=0;i<count;i++)
             {
                 top15percentEarners[i] = sortedEntries[i];
@@ -31,9 +31,8 @@ namespace SteveJulienSNLtest
 
         }
 
-        private void setTopEarnersStrings()
-        {
-            
+        private static void setTopEarnersStrings()
+        {    
             List<TopEarnerModel> topEarnersModels = 
                 Sorter.getSortedListGrossLastNameFirstName(top15percentEarners);
             topEarnerStrings = new string[topEarnersModels.Count];
@@ -45,7 +44,7 @@ namespace SteveJulienSNLtest
             }
         }
 
-        public void writeTopEarnersReportToFile()
+        private static void writeTopEarnersReportToFile()
         {
             StringArrayToFileWriter.write(path, topEarnerStrings);
         }

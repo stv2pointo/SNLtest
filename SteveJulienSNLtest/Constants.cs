@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SteveJulienSNLtest.Models
+﻿namespace SteveJulienSNLtest.Models
 {
     public static class Constants
     {
@@ -18,6 +12,8 @@ namespace SteveJulienSNLtest.Models
         public static double OVER_80_FACTOR = 1.5;
         public static double OVER_90_FACTOR = 1.75;
     }
+
+    // States enum is used to sort state report lists into the right array index
     public enum States
     {
         UT = 0,

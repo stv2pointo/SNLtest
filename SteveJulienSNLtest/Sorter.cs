@@ -9,9 +9,9 @@ namespace SteveJulienSNLtest
 {
     public static class Sorter
     {
-        public static PayrollEntry[] sortPayrollEntriesByGross(PayrollEntry[] entries)
+        public static EmployeePayrollEntry[] sortPayrollEntriesByGross(EmployeePayrollEntry[] entries)
         {
-            Array.Sort(entries, delegate (PayrollEntry emp1, PayrollEntry emp2)
+            Array.Sort(entries, delegate (EmployeePayrollEntry emp1, EmployeePayrollEntry emp2)
             {
                 return emp2.getPeriodGrossPay().CompareTo(emp1.getPeriodGrossPay());
             });
@@ -19,12 +19,12 @@ namespace SteveJulienSNLtest
             return entries;
         }
 
-        public static List<TopEarnerModel> getSortedListGrossLastNameFirstName(PayrollEntry[] entries)
+        public static List<TopEarnerModel> getSortedListGrossLastNameFirstName(EmployeePayrollEntry[] entries)
         {
             List<TopEarnerModel> topEarnerList = new List<TopEarnerModel>();
             for (int i = 0; i < entries.Length; i++)
             {
-                PayrollEntry entry = entries[i];
+                EmployeePayrollEntry entry = entries[i];
                 TopEarnerModel earner = new TopEarnerModel();
                 earner.lastName = entry.lastName;
                 earner.firstName = entry.firstName;
@@ -47,14 +47,14 @@ namespace SteveJulienSNLtest
             return (int)timespan.TotalDays / 365;
         }
 
-        public static List<PayrollEntry>[] sortEntriesIntoArrayOfEntryListsByState(PayrollEntry[] entries)
+        public static List<EmployeePayrollEntry>[] sortEntriesIntoArrayOfEntryListsByState(EmployeePayrollEntry[] entries)
         {
             int numStates = (int)States.STATE_COUNT;
-            List<PayrollEntry>[] stateEntries = new List<PayrollEntry>[numStates];
+            List<EmployeePayrollEntry>[] stateEntries = new List<EmployeePayrollEntry>[numStates];
 
             for(int i = 0; i < numStates; i++)
             {
-                stateEntries[i] = new List<PayrollEntry>();
+                stateEntries[i] = new List<EmployeePayrollEntry>();
             }
 
             for (int i = 0; i < entries.Length; i++)
