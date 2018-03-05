@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest.Models
 {
@@ -11,7 +7,7 @@ namespace SteveJulienSNLtest.Models
         public static void run(PayPeriodDataFactory factory)
         {
             string input = "";
-            while (string.IsNullOrEmpty(input))
+            while (!input.Equals("q"))
             {
                 Console.Write("Enter employee id: ");
 
@@ -21,18 +17,19 @@ namespace SteveJulienSNLtest.Models
                 if (employee != null)
                 {
                     emp =
-                    "Employee Id:  " + employee.Id + "\n" +
+                    "\nEmployee Id:  " + employee.Id + "\n" +
                     "First Name:   " + employee.firstName + "\n" +
                     "Last Name:    " + employee.lastName + "\n" +
                     "Pay Type:     " + employee.payType + "\n" +
                     "Salary:       $" + employee.salary.ToString("F") + "\n" +
-                    "Start Date:   " + employee.startDate.ToString() + "\n" +
+                    "Start Date:   " + employee.startDate.ToString("MM/dd/yyyy") + "\n" +
                     "State of Res: " + employee.residenceState.getName() + "\n" +
                     "Hours worked: " + employee.currentHours.ToString("F");
                 }
                 Console.WriteLine(emp);
-                Console.Write("Hit q to quit, or hit enter to search again ");
+                Console.Write("\nHit q to quit, or hit enter to search again ");
                 input = Console.ReadLine();
+                input = input.ToLower();
             }
         }
     }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest.Models
 {
@@ -44,7 +41,6 @@ namespace SteveJulienSNLtest.Models
                 Console.WriteLine("ERROR: No tax rate is set for " + name);
             }
         }
-
         public string getName()
         {
             return name;
@@ -54,7 +50,4 @@ namespace SteveJulienSNLtest.Models
             return stateTaxRate;
         }
     }
-
-
-
 }

@@ -46,12 +46,11 @@
     <Compile Include="EmployeeFetcher.cs" />
     <Compile Include="InputFileValidator.cs" />
     <Compile Include="Models\EmployeePayrollEntry.cs" />
-    <Compile Include="Models\HourlyEmployee.cs" />
-    <Compile Include="Models\StateReportModel.cs" />
+    <Compile Include="Models\HourlyEmployeeEntry.cs" />
     <Compile Include="Models\TopEarnerModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Models\ResidenceState.cs" />
-    <Compile Include="Models\SalaryEmployee.cs" />
+    <Compile Include="Models\SalaryEmployeeEntry.cs" />
     <Compile Include="PayCheckReport.cs" />
     <Compile Include="PayPeriodDataFactory.cs" />
     <Compile Include="Sorter.cs" />

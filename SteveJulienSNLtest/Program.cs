@@ -8,23 +8,26 @@ namespace SteveJulienSNLtest
     {
         static void Main(string[] args)
         {
-
             Console.WriteLine("Welcome to the Payroll Report Generator.\n");
 
             PayPeriodDataFactory factory = new PayPeriodDataFactory(InputFileValidator.getInputPath());
 
-            Console.WriteLine("Processing file...\n");
-
-            EmployeePayrollEntry[] sortedPayrollEntries = 
+            Console.WriteLine("Processing payroll checks...\n");
+            EmployeePayrollEntry[] sortedPayrollEntries =
                 Sorter.sortPayrollEntriesByGross(factory.getPayrollEntries());
-            
-            PayCheckReport.run(sortedPayrollEntries);
+
+            Console.Write("Would you like comma delimited results? Enter y/n?");
+            string delimiter = Console.ReadLine();
+            delimiter = delimiter.ToLower();
+            delimiter = (delimiter.Equals("y")) ? "," : "";
+
+            PayCheckReport.run(delimiter, sortedPayrollEntries);
             Console.WriteLine("Paychecks report written to " + Constants.DEFAULT_PAYCHECKS_WRITE_PATH);
 
-            Top15PercentEarnersReport.run(sortedPayrollEntries);
+            Top15PercentEarnersReport.run(delimiter, sortedPayrollEntries);
             Console.WriteLine("Top Earners report written to " + Constants.DEFAULT_TOP_EARNERS_WRITE_PATH);
 
-            StateReportFactory.run(sortedPayrollEntries);
+            StateReportFactory.run(delimiter, sortedPayrollEntries);
             Console.WriteLine("State reports written to " + Constants.DEFAULT_STATE_REPORT_WRITE_PATH);
 
             factory.writeDictionary();
@@ -36,12 +39,6 @@ namespace SteveJulienSNLtest
             {
                 EmployeeFetcher.run(factory);
             }
-
-            Console.WriteLine("\nThanks, have a great day.\nHit Enter to close");
-
-            Console.ReadLine();
-
         }
-
     }
 }

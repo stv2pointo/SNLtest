@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest.Models
 {
-    public class HourlyEmployee : EmployeePayrollEntry
+    public class HourlyEmployeeEntry : EmployeePayrollEntry
     {
-        public HourlyEmployee(string[] values) : base(values)
+        public HourlyEmployeeEntry(string[] values) : base(values)
         {
         }
 

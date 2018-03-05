@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
     public class PayPeriodDataFactory
     {
-        //public static int ROWS_TO_COLLECT = 5;// int.MaxValue;
         private string[] rawLines;
         private EmployeePayrollEntry[] payrollEntries;
         private Dictionary<string, EmployeePayrollEntry> payrollDict;
@@ -38,8 +35,6 @@ namespace SteveJulienSNLtest
         { 
             string line;
             int numLines = File.ReadLines(path).Count();
-            // TODO: REMOVE COUNT STUFF AFTER TESTING
-            //numLines = (numLines > ROWS_TO_COLLECT) ? ROWS_TO_COLLECT : numLines;
 
             if (numLines > 0)
             {
@@ -49,7 +44,7 @@ namespace SteveJulienSNLtest
                     int index = 0;
                     StreamReader file =
                         new StreamReader(path);
-                    while ((line = file.ReadLine()) != null)// && index < ROWS_TO_COLLECT)
+                    while ((line = file.ReadLine()) != null)
                     {
                         rawLines[index] = line;
                         index++;
@@ -76,11 +71,11 @@ namespace SteveJulienSNLtest
                 EmployeePayrollEntry emp = null;
                 if (payType.ToUpper().Equals("H"))
                 {
-                    emp = new HourlyEmployee(fields);
+                    emp = new HourlyEmployeeEntry(fields);
                 }
                 else if (payType.ToUpper().Equals("S"))
                 {
-                    emp = new SalaryEmployee(fields);
+                    emp = new SalaryEmployeeEntry(fields);
                 }
                 else
                 {
@@ -117,6 +112,5 @@ namespace SteveJulienSNLtest
             }
             return entry;
         }
-
     }
 }

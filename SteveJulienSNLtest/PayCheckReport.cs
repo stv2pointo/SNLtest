@@ -1,9 +1,4 @@
 ﻿using SteveJulienSNLtest.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
@@ -12,7 +7,7 @@ namespace SteveJulienSNLtest
         private static string[] paycheckStrings;
         private static string path = Constants.DEFAULT_PAYCHECKS_WRITE_PATH;
 
-        public static void run(EmployeePayrollEntry[] sortedEntries)
+        public static void run(string delimiter, EmployeePayrollEntry[] sortedEntries)
         {
             paycheckStrings = new string[sortedEntries.Length];
 
@@ -20,12 +15,12 @@ namespace SteveJulienSNLtest
             {
                 EmployeePayrollEntry e = sortedEntries[i];
                 string text = e.Id;
-                text += " " + e.firstName;
-                text += " " + e.lastName;
-                text += " " + e.getPeriodGrossPay().ToString("F");
-                text += " " + e.getFederalTax().ToString("F");
-                text += " " + e.getStateTax().ToString("F");
-                text += " " + e.getNetPay().ToString("F");
+                text += delimiter + " " + e.firstName;
+                text += delimiter + " " + e.lastName;
+                text += delimiter + " " + e.getPeriodGrossPay().ToString("F");
+                text += delimiter + " " + e.getFederalTax().ToString("F");
+                text += delimiter + " " + e.getStateTax().ToString("F");
+                text += delimiter + " " + e.getNetPay().ToString("F");
                 paycheckStrings[i] = text;
             }
 
@@ -35,5 +30,6 @@ namespace SteveJulienSNLtest
         {
             StringArrayToFileWriter.write(path, paycheckStrings);
         }
+
     }
 }

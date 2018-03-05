@@ -1,10 +1,7 @@
 ﻿using SteveJulienSNLtest.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
@@ -14,6 +11,7 @@ namespace SteveJulienSNLtest
         {
             if (isDefaultInputPrompt())
             {
+                Console.WriteLine("Processing raw payroll data...\n");
                 return Constants.DEFAULT_INPUT_PATH;
             }
 
@@ -31,6 +29,7 @@ namespace SteveJulienSNLtest
                     break;
                 }
             }
+            Console.WriteLine("Processing raw payroll data...\n");
             return input;
         }
 
@@ -66,7 +65,7 @@ namespace SteveJulienSNLtest
             {
                 string line1 = File.ReadLines(path).First();
                 string[] fields = line1.Split(',');
-                EmployeePayrollEntry testEntry = new HourlyEmployee(fields);
+                EmployeePayrollEntry testEntry = new HourlyEmployeeEntry(fields);
             }
             catch
             {

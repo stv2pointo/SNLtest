@@ -1,9 +1,5 @@
 ﻿using SteveJulienSNLtest.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest
 {
@@ -13,13 +9,13 @@ namespace SteveJulienSNLtest
         private static string[] topEarnerStrings;
         private static string path = Constants.DEFAULT_TOP_EARNERS_WRITE_PATH;
 
-        public static void run(EmployeePayrollEntry[] sortedEntries)
+        public static void run(string delimiter, EmployeePayrollEntry[] sortedEntries)
         {
             setTop15PercentEarners(sortedEntries);
-            setTopEarnersStrings();
+            formatTopEarnersStrings(delimiter);
             writeTopEarnersReportToFile();
         }
-
+    
         private static void setTop15PercentEarners(EmployeePayrollEntry[] sortedEntries)
         {
             int count = (int)(sortedEntries.Length * 0.15);
@@ -28,10 +24,9 @@ namespace SteveJulienSNLtest
             {
                 top15percentEarners[i] = sortedEntries[i];
             }
-
         }
 
-        private static void setTopEarnersStrings()
+        private static void formatTopEarnersStrings(string delimiter)
         {    
             List<TopEarnerModel> topEarnersModels = 
                 Sorter.getSortedListGrossLastNameFirstName(top15percentEarners);
@@ -39,7 +34,11 @@ namespace SteveJulienSNLtest
             int index = 0;
             foreach(TopEarnerModel m in topEarnersModels)
             {
-                topEarnerStrings[index] = m.firstName + " " + m.lastName + " " + m.numYearsWorked + " " + m.grossPay.ToString("F");
+                topEarnerStrings[index] = 
+                    m.firstName         + delimiter + " " + 
+                    m.lastName          + delimiter + " " + 
+                    m.numYearsWorked    + delimiter + " " + 
+                    m.grossPay.ToString("F");
                 index++;
             }
         }
@@ -47,8 +46,7 @@ namespace SteveJulienSNLtest
         private static void writeTopEarnersReportToFile()
         {
             StringArrayToFileWriter.write(path, topEarnerStrings);
-        }
-        
+        }    
+         
     }
-
 }

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SteveJulienSNLtest.Models
-{
-   
+{  
     public abstract class EmployeePayrollEntry
     {
         public string Id { get; set; }
@@ -42,10 +37,6 @@ namespace SteveJulienSNLtest.Models
         public double getStateTax()
         {
             return getPeriodGrossPay() * residenceState.getStateTaxRate();
-        } 
-
-        
+        }      
     }
-
-
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 
-
 namespace SteveJulienSNLtest
 {
     public static class StringArrayToFileWriter
@@ -19,6 +18,4 @@ namespace SteveJulienSNLtest
             }
         }
     }
-
-    
 }
